@@ -44,13 +44,13 @@ const Home = () => {
           <h1 className="text-2xl font-bold text-neutral-900">Extension List</h1>
 
           <div className="flex flex-row gap-2">
-            <Button onClick={() => {
+            <Button variant={filter === 'All' ? 'destructive' : 'default'} onClick={() => {
               setFilter('All')
             } }>All</Button>
-            <Button onClick={() => {
+            <Button variant={filter === 'Active' ? 'destructive' : 'default'} onClick={() => {
               setFilter('Active')
             } }>Active</Button>
-            <Button onClick={() => {
+            <Button variant={filter === 'InActive' ? 'destructive' : 'default'} onClick={() => {
               setFilter('InActive')
             } }>Inactive</Button>
           </div>
