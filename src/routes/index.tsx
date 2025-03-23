@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 
 type Extension = {
-    name: string;
-    description: string;
-    isActive: boolean;
-    logo: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+  logo: string;
 }
 
 const Home = () => {
@@ -60,8 +60,7 @@ const Home = () => {
     <section>
       <div className="container mx-auto py-2 max-w-5xl">
         <div className="flex flex-col gap-4 md:flex-row justify-between pb-4 items-center">
-          <h1 className="text-2xl font-bold text-neutral-900">Extension List</h1>
-
+          <h1 className="text-3xl md:text-2xl font-bold text-neutral-900 dark:text-white">Extension List</h1>
           <div className="flex flex-row gap-2">
             <Button
               variant={filter === 'All' ? 'destructive' : 'default'}
@@ -92,14 +91,18 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredExtensions.map((extension, index) => {
             return (
-              <div className="block p-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
+              <div className="block p-4 bg-white rounded-xl shadow-sm dark:border dark:border-neutral-600 dark:bg-neutral-800">
                 <div className="flex flew-row gap-4 pb-4">
                   <div className="w-16 h-16">
-                    <img className="max-w-full" src={loadImage(extension.logo)}></img>
+                    <img className="max-w-full" alt={`Extension ${extension.name} icon`} src={loadImage(extension.logo)}></img>
                   </div>
                   <div>
-                    <h2 className="font-bold text-neutral-900 text-sm pb-1">{extension.name}</h2>
-                    <p className="text-xs text-neutral-600">{extension.description}</p>
+                    <h2 className="font-bold text-neutral-900 dark:text-white text-sm pb-1">
+                      {extension.name}
+                    </h2>
+                    <p className="text-xs text-neutral-600 dark:text-neutral-300">
+                      {extension.description}
+                    </p>
                   </div>
                 </div>
                 <div className="flex flex-row justify-between items-center">
@@ -124,7 +127,6 @@ const Home = () => {
           })}
         </div>
       </div>
-
     </section>
   )
 }
