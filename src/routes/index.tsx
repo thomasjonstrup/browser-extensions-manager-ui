@@ -36,6 +36,9 @@ const Home = () => {
     return filteredList
   }, [filter, extensions])
 
+  const loadImage = (imageName: string): string => {
+    return new URL(imageName, import.meta.url).href
+  };
 
   return (
     <section>
@@ -61,7 +64,7 @@ const Home = () => {
               <div className="block p-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="flex flew-row gap-4 pb-4">
                   <div className="w-16 h-16">
-                    <img className="max-w-full" src={LogoDevlens}></img>
+                    <img className="max-w-full" src={loadImage(extension.logo)}></img>
                   </div>
                   <div>
                     <h2 className="font-bold text-neutral-900 text-sm pb-1">{extension.name}</h2>
