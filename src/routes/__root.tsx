@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { cva } from 'class-variance-authority';
