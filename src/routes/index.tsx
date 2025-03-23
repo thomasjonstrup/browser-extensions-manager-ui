@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import LogoDevlens from '../assets/images/logo-devlens.svg';
 
-import data from '../data.json';
+import extensions from '../data.json';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 
@@ -14,7 +14,6 @@ type Extension = {
 }
 
 const Home = () => {
-  const [extensions, setExtensions] = useState(data);
   const [filter, setFilter] = useState<'All'|'Active'|'InActive'>('All');
   console.log("🚀 ~ Home ~ extensions:", extensions)
 
