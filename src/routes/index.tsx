@@ -41,7 +41,7 @@ const Home = () => {
   return (
     <section>
       <div className="container mx-auto py-2 max-w-5xl">
-        <div className="flex flex-col md:flex-row justify-between pb-4 items-center">
+        <div className="flex flex-col gap-4 md:flex-row justify-between pb-4 items-center">
           <h1 className="text-2xl font-bold text-neutral-900">Extension List</h1>
 
           <div className="flex flex-row gap-2">

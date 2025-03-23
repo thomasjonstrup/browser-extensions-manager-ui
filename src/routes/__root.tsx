@@ -8,7 +8,7 @@ import IconMoon from '../assets/images/icon-moon.svg';
 
 export const Route = createRootRoute({
   component: () => (
-    <div className="h-full w-full bg-linear-[180deg] from-gradient-light-end to-gradient-light-end">
+    <div className="h-full w-full min-h-screen bg-linear-[180deg] from-gradient-light-end to-gradient-light-end">
       <header className="py-4 px-6 lg:px-8">
         <div className="container mx-auto flex flex-row justify-between max-w-3xl rounded-xl shadow bg-white p-4">
           <a href="/" aria-label="Go to home">
