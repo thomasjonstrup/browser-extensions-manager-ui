@@ -1,5 +1,7 @@
 Welcome to your new TanStack app! 
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a32aecd2-3a0c-476d-a034-89161441d625/deploy-status)](https://app.netlify.com/sites/browser-extensions-manager-ui/deploys)
+
 # Getting Started
 
 To run this application:
