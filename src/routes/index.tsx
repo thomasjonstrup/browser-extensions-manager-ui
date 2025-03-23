@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import LogoDevlens from '../assets/images/logo-devlens.svg';
 
 import extensions from '../data.json';
 import { Button } from '@/components/ui/button';
