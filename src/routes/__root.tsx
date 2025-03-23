@@ -15,7 +15,7 @@ export const Route = createRootRoute({
             <img src={Logo} alt='App logo'></img>
           </a>
 
-          <Button variant="secondary">
+          <Button variant="secondary" size="icon">
             <img src={IconMoon} alt='Moon icon'></img>
           </Button>
         </div>

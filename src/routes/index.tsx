@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 
-import extensions from '../data.json';
+import extensionsData from '../data.json';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 
@@ -13,8 +13,8 @@ type Extension = {
 }
 
 const Home = () => {
+  const [extensions, setExtensions] = useState<Extension[]>(extensionsData);
   const [filter, setFilter] = useState<'All'|'Active'|'InActive'>('All');
-  console.log("🚀 ~ Home ~ extensions:", extensions)
 
   const filteredExtensions = useMemo(() =>  {
     let filteredList: Extension[] = [];
@@ -39,6 +39,23 @@ const Home = () => {
     return new URL(imageName, import.meta.url).href
   };
 
+  const removeExtension = (index: number) => {
+    setExtensions((prevExtensions) => {
+      return [...prevExtensions.filter((_item, extensionIndex) => extensionIndex !== index)]
+    })
+  }
+
+  const toggleActive = (index: number) => {
+    setExtensions((prevExtensions) => {
+      return prevExtensions.map((extension, extensionIndex) => {
+        if (extensionIndex === index) {
+          return { ...extension, isActive: !extension.isActive };
+        }
+        return extension;
+      });
+    });
+  };
+
   return (
     <section>
       <div className="container mx-auto py-2 max-w-5xl">
@@ -46,19 +63,34 @@ const Home = () => {
           <h1 className="text-2xl font-bold text-neutral-900">Extension List</h1>
 
           <div className="flex flex-row gap-2">
-            <Button variant={filter === 'All' ? 'destructive' : 'default'} onClick={() => {
-              setFilter('All')
-            } }>All</Button>
-            <Button variant={filter === 'Active' ? 'destructive' : 'default'} onClick={() => {
+            <Button
+              variant={filter === 'All' ? 'destructive' : 'default'}
+              onClick={() => {
+                setFilter('All')
+              } }
+            >
+              All
+            </Button>
+            <Button
+            variant={filter === 'Active' ? 'destructive' : 'default'}
+            onClick={() => {
               setFilter('Active')
-            } }>Active</Button>
-            <Button variant={filter === 'InActive' ? 'destructive' : 'default'} onClick={() => {
-              setFilter('InActive')
-            } }>Inactive</Button>
+            } }
+            >
+              Active
+            </Button>
+            <Button
+              variant={filter === 'InActive' ? 'destructive' : 'default'}
+              onClick={() => {
+                setFilter('InActive')
+              } }
+            >
+              Inactive
+            </Button>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredExtensions.map(extension => {
+          {filteredExtensions.map((extension, index) => {
             return (
               <div className="block p-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                 <div className="flex flew-row gap-4 pb-4">
@@ -71,8 +103,21 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex flex-row justify-between items-center">
-                  <Button>Remove</Button>
-                  <Switch aria-label={`Is ${extension.name} extension active`} name="isActive" checked={extension.isActive} />
+                  <Button
+                    onClick={() => {
+                      removeExtension(index);
+                    }}
+                  >
+                    Remove
+                  </Button>
+                  <Switch
+                    aria-label={`Is ${extension.name} extension active`}
+                    name="isActive"
+                    onClick={() => {
+                      toggleActive(index)
+                    }}
+                   checked={extension.isActive}
+                  />
                 </div>
               </div>
             )
