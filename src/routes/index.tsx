@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 
 type Extension = {
+  id: number;
   name: string;
   description: string;
   isActive: boolean;
@@ -39,16 +40,16 @@ const Home = () => {
     return new URL(imageName, import.meta.url).href
   };
 
-  const removeExtension = (index: number) => {
+  const removeExtension = (id: number) => {
     setExtensions((prevExtensions) => {
-      return [...prevExtensions.filter((_item, extensionIndex) => extensionIndex !== index)]
+      return [...prevExtensions.filter((item) => item.id !== id)]
     })
   }
 
-  const toggleActive = (index: number) => {
+  const toggleActive = (id: number) => {
     setExtensions((prevExtensions) => {
-      return prevExtensions.map((extension, extensionIndex) => {
-        if (extensionIndex === index) {
+      return prevExtensions.map((extension) => {
+        if (extension.id === id) {
           return { ...extension, isActive: !extension.isActive };
         }
         return extension;
@@ -89,7 +90,7 @@ const Home = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredExtensions.map((extension, index) => {
+          {filteredExtensions.map((extension) => {
             return (
               <div className="block p-4 bg-white rounded-xl shadow-sm dark:border dark:border-neutral-600 dark:bg-neutral-800">
                 <div className="flex flew-row gap-4 pb-4">
@@ -108,7 +109,7 @@ const Home = () => {
                 <div className="flex flex-row justify-between items-center">
                   <Button
                     onClick={() => {
-                      removeExtension(index);
+                      removeExtension(extension.id);
                     }}
                   >
                     Remove
@@ -117,7 +118,7 @@ const Home = () => {
                     aria-label={`Is ${extension.name} extension active`}
                     name="isActive"
                     onClick={() => {
-                      toggleActive(index)
+                      toggleActive(extension.id)
                     }}
                    checked={extension.isActive}
                   />
