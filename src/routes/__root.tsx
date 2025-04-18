@@ -30,7 +30,7 @@ const RouteContent = () => {
 
   return (
     <div className={backgroundClass}>
-      <header className="py-4 px-6 lg:px-8">
+      <header className="py-6 px-6 lg:px-8">
         <div className="container mx-auto flex flex-row justify-between max-w-3xl rounded-xl shadow bg-white dark:bg-neutral-800 p-4">
           <a href="/" aria-label="Go to home">
             <img src={Logo} alt='App logo'></img>
