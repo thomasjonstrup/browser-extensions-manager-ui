@@ -1,9 +1,13 @@
 import { useMemo, useState } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useLiveQuery } from "dexie-react-hooks";
 
 import extensionsData from '../data.json';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
+import { db } from '@/db';
+import { Card } from '@/components/card/card';
+
 
 type Extension = {
   id: number;
@@ -14,10 +18,11 @@ type Extension = {
 }
 
 const Home = () => {
-  const [extensions, setExtensions] = useState<Extension[]>(extensionsData);
-  const [filter, setFilter] = useState<'All'|'Active'|'InActive'>('All');
+  const extensionsList = useLiveQuery(() => db.extensions.toArray());
+  const [extensions, setExtensions] = useState<Extension[]>(extensionsList || extensionsData);
+  const [filter, setFilter] = useState<'All' | 'Active' | 'InActive'>('All');
 
-  const filteredExtensions = useMemo(() =>  {
+  const filteredExtensions = useMemo(() => {
     let filteredList: Extension[] = [];
 
     switch (filter) {
@@ -67,15 +72,15 @@ const Home = () => {
               variant={filter === 'All' ? 'destructive' : 'default'}
               onClick={() => {
                 setFilter('All')
-              } }
+              }}
             >
               All
             </Button>
             <Button
-            variant={filter === 'Active' ? 'destructive' : 'default'}
-            onClick={() => {
-              setFilter('Active')
-            } }
+              variant={filter === 'Active' ? 'destructive' : 'default'}
+              onClick={() => {
+                setFilter('Active')
+              }}
             >
               Active
             </Button>
@@ -83,7 +88,7 @@ const Home = () => {
               variant={filter === 'InActive' ? 'destructive' : 'default'}
               onClick={() => {
                 setFilter('InActive')
-              } }
+              }}
             >
               Inactive
             </Button>
@@ -92,21 +97,8 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredExtensions.map((extension) => {
             return (
-              <div className="block p-4 bg-white rounded-xl shadow-sm dark:border dark:border-neutral-600 dark:bg-neutral-800">
-                <div className="flex flew-row gap-4 pb-4">
-                  <div className="w-16 h-16">
-                    <img className="max-w-full" alt={`Extension ${extension.name} icon`} src={loadImage(extension.logo)}></img>
-                  </div>
-                  <div>
-                    <h2 className="font-bold text-neutral-900 dark:text-white text-sm pb-1">
-                      {extension.name}
-                    </h2>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-300">
-                      {extension.description}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-row justify-between items-center">
+              <Link to="/extensions/$extensionId" params={{ extensionId: String(extension.id) }} key={extension.id}>
+                <Card name={extension.name} description={extension.description} logo={loadImage(extension.logo)}>
                   <Button
                     onClick={() => {
                       removeExtension(extension.id);
@@ -120,10 +112,11 @@ const Home = () => {
                     onClick={() => {
                       toggleActive(extension.id)
                     }}
-                   checked={extension.isActive}
+                    checked={extension.isActive}
                   />
-                </div>
-              </div>
+                </Card>
+              </Link>
+
             )
           })}
         </div>

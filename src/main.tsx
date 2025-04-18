@@ -9,7 +9,11 @@ import '@fontsource-variable/noto-sans';
 import { routeTree } from './routeTree.gen'
 
 import './styles.css'
-import reportWebVitals from './reportWebVitals.ts'
+import reportWebVitals from './reportWebVitals.ts';
+
+import {loadJsonToDexie} from '@/db.ts';
+
+loadJsonToDexie();
 
 // Create a new router instance
 const router = createRouter({

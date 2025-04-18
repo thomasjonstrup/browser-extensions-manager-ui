@@ -12,12 +12,19 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as ExtensionsExtensionIdImport } from './routes/extensions/$extensionId'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExtensionsExtensionIdRoute = ExtensionsExtensionIdImport.update({
+  id: '/extensions/$extensionId',
+  path: '/extensions/$extensionId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/extensions/$extensionId': {
+      id: '/extensions/$extensionId'
+      path: '/extensions/$extensionId'
+      fullPath: '/extensions/$extensionId'
+      preLoaderRoute: typeof ExtensionsExtensionIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/extensions/$extensionId': typeof ExtensionsExtensionIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/extensions/$extensionId': typeof ExtensionsExtensionIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/extensions/$extensionId': typeof ExtensionsExtensionIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/extensions/$extensionId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/extensions/$extensionId'
+  id: '__root__' | '/' | '/extensions/$extensionId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExtensionsExtensionIdRoute: typeof ExtensionsExtensionIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExtensionsExtensionIdRoute: ExtensionsExtensionIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/extensions/$extensionId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/extensions/$extensionId": {
+      "filePath": "extensions/$extensionId.tsx"
     }
   }
 }
