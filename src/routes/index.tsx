@@ -97,8 +97,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredExtensions.map((extension) => {
             return (
-              <Link to="/extensions/$extensionId" params={{ extensionId: String(extension.id) }} key={extension.id}>
-                <Card name={extension.name} description={extension.description} logo={loadImage(extension.logo)}>
+                <Card name={extension.name} description={extension.description} logo={loadImage(extension.logo)} key={extension.id}>
                   <Button
                     onClick={() => {
                       removeExtension(extension.id);
@@ -115,9 +114,7 @@ const Home = () => {
                     checked={extension.isActive}
                   />
                 </Card>
-              </Link>
-
-            )
+            );
           })}
         </div>
       </div>
